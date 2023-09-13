@@ -1,11 +1,10 @@
 const express = require('express');
 const path = require("path");
-
 const products = [];
 const router = express.Router();
 
 router.get('/add-product', (req, res, next) => {
-    res.render(path.join(__dirname, '..', 'views', 'add-product.ejs'));
+    res.render('add-product');
 });
 
 router.post('/add-product', (req, res, next) => {
