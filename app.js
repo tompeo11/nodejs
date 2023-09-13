@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const path = require('path');
+const {products} = require("./routes/admin");
 
 
 const app = express();
@@ -18,6 +19,7 @@ app.set('views', 'views');
 app.use((req, res, next) => {
     res.status(404).render(path.join(__dirname, './views/404.ejs'),
         {pageTitle: 'Page Not Found'});
+    products.
 });
 
 app.listen(3001);
