@@ -1,0 +1,27 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% products.forEach((product) => { %>
+            <tr>
+                <td><%= product.id%></td>
+                <td><%= product.title%></td>
+                <td><%= product.description%></td>
+                <td><%= product.price%></td>
+                <td><img src="/images/<%= product.image%>" alt="" style="width: 150px "></td>
+                <td>
+                    <a href="/admin/edit-product/<%= product.id%>" class="btn btn-primary">Edit</a>
+                    <a href="" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>

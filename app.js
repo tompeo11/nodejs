@@ -2,22 +2,26 @@ const express = require('express');
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const expressLayouts = require('express-ejs-layouts');
+const exceptionController = require('./controllers/exception-controller');
+
 
 const app = express();
+
+
+
 app.use(express.urlencoded({extended: false}));
 app.use(expressLayouts);
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
-app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/'));
+app.use('/images', express.static(__dirname + '/images/'));
+app.use('/asset', express.static(__dirname + '/asset/'));
 
 app.use(shopRoutes);
 app.use('/admin', adminRoutes.router);
 
-app.use((req, res, next) => {
-    res.status(404).render('error/404',
-        {pageTitle: 'Page Not Found'});
-});
+app.use(exceptionController.handle404);
 
 app.listen(3001);
