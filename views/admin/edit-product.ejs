@@ -1,6 +1,6 @@
 <main class="flex-grow-1 d-flex flex-column container">
     <h1>Add product</h1>
-    <form action="/admin/add-product" method="POST" style="max-width: 500px" class="m-auto bg-body-secondary p-5" enctype="multipart/form-data">
+    <form action="/admin/edit-product/" method="POST" style="max-width: 500px" class="m-auto bg-body-secondary p-5" enctype="multipart/form-data">
         <label for="title" class="mb-3">Name</label>
         <input id="title" type="text" name="title" class="form-control mb-3" value="<%= product.title%>">
         <label for="image" class="mb-3">Image</label>
@@ -9,9 +9,8 @@
         <textarea id="description" name="description" class="form-control mb-3"> <%= product.description%></textarea>
         <label for="price" class="mb-3">Price</label>
         <input name="price" id="price" type="number" class="form-control" value="<%= product.price%>">
-        <button type="submit" class="btn btn-primary w-100">Edit product</button>
-
-
-
+        <input name="imageUrl" type="hidden" value="<%= product.image%>">
+        <input type="hidden" value="<%= product.id%>" name="id">
+        <button type="submit" class="btn btn-primary w-100">Update product</button>
     </form>
 </main>

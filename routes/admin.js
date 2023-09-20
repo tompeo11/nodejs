@@ -9,7 +9,7 @@ router.post('/add-product', upload.single('image'), productController.insertNewP
 router.get('/list-product', productController.listProduct);
 
 router.get('/edit-product/:id', productController.editProduct);
-router.post('/edit-product/', productController.editProduct);
+router.post('/edit-product/' , upload.single('image'), productController.updateProduct);
 
 module.exports = {
     router : router
