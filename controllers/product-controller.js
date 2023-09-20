@@ -22,7 +22,7 @@ exports.insertNewProduct = (req, res, next) => {
         description : req.body.description,
         price : req.body.price
     }
-    ProductController.Add(products);
+    ProductController.add(products);
     res.redirect('/');
 }
 
@@ -35,7 +35,6 @@ exports.getProductList = (req, res, next) => {
 
 exports.listProduct = (req, res, next) => {
     const products = ProductController.getAll();
-    console.log(products)
     res.render('admin/list-product', {
         products : products,
         path : 'admin/list-product'
@@ -43,11 +42,13 @@ exports.listProduct = (req, res, next) => {
 }
 
 exports.editProduct = (req, res, next) => {
-    const id = req.params.id
-    const product = ProductController.findById(id)
-    console.log(product)
-    res.render('admin/edit-product', {
-        product : product,
-        path : 'admin/edit-product'
-    });
+    try {
+        const id = parseInt(req.params.id)
+        const product = ProductController.findById(id)
+        const title = 'Admin - Edit Products'
+        if (product) res.render('admin/edit-product', { product, title, path : 'admin/edit-product' })
+        else res.redirect('/admin/product')
+    } catch (err) {
+        console.error(`[Get] - /admin/product/:id/edit ==> `, err)
+    }
 }
