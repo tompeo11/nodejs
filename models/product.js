@@ -1,5 +1,5 @@
 const products = [];
-let id = 1;
+let id = 0;
 module.exports = class Product{
 
     constructor(title, image, description, price) {
@@ -9,16 +9,16 @@ module.exports = class Product{
         this.price = price;
     }
     static Add (product){
+        id ++
         product.id = id
         products.push(product);
-        id ++
+
     }
     static getAll(){
         return products;
     }
 
-    static findById(id){
-        const result =  products.find(p => p.id === id)
-        return result[0]
+    static findById = (id) => {
+        return products.find((p) => p.id === id)
     }
 }
