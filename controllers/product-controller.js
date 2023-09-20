@@ -52,8 +52,6 @@ exports.editProduct = (req, res, next) => {
 }
 
 exports.updateProduct = (req, res, next) => {
-    console.log(req.body)
-
     const imageFile = req.file;
     let imgName;
     if (!imageFile){
@@ -66,10 +64,20 @@ exports.updateProduct = (req, res, next) => {
     const description = req.body.description;
 
     const product = new Product(title, price, description, imgName);
+
     product.id = parseInt(req.body.id);
 
     console.log(product)
     Product.update(product);
     res.redirect('/admin/list-product')
 
+}
+
+
+exports.deleteProduct = (req, res, next) => {
+    const {id} = req.params
+    const product = Product.findById(parseInt(id))
+    console.log(product)
+    Product.delete(product);
+    res.redirect('/admin/list-product')
 }

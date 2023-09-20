@@ -33,10 +33,11 @@ class Product {
         }
     }
 
-    static remove = (id) => {
-        const index = products.findIndex((p) => p.id === id)
+    static delete = (product) => {
+        const index = products.findIndex((p) => p.id === product.id)
         if (index !== -1) {
             products.splice(index, 1)
+            console.log('Xoa thanh cong')
         } else {
             console.log('Remove product >> Không tìm thấy product')
         }

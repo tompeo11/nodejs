@@ -19,9 +19,54 @@
                 <td><img src="/images/<%= product.image%>" alt="" style="width: 150px "></td>
                 <td>
                     <a href="/admin/edit-product/<%= product.id%>" class="btn btn-primary">Edit</a>
-                    <a href="" class="btn btn-danger">Delete</a>
+
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            data-bs-id="<%= product.id%>">
+                        Delete
+                    </button>
+
                 </td>
             </tr>
         <% }) %>
     </tbody>
 </table>
+
+<form id="formDelete" action="/admin/delete-product" method="post">
+    <input type="hidden" name="id">
+</form>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ban co chac chan xoa?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huy</button>
+                <button id="confirm" type="button" class="btn btn-primary">Xoa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const exampleModal = document.getElementById('exampleModal')
+    const formDelete = document.getElementById('formDelete')
+    if (exampleModal) {
+        exampleModal.addEventListener('show.bs.modal', event => {
+            const button = event.relatedTarget
+            const id = button.getAttribute('data-bs-id')
+            const confirm = exampleModal.querySelector('#confirm')
+            formDelete.action = `/admin/delete-product/${id}`
+            confirm.addEventListener("click", () => {
+                formDelete.submit()
+            })
+
+        })
+    }
+</script>
