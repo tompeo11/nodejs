@@ -3,10 +3,10 @@ const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const expressLayouts = require('express-ejs-layouts');
 const exceptionController = require('./controllers/exception-controller');
+const mongoConnect = require('./util/mongodb').mongoConnect
 
 
 const app = express();
-
 
 
 app.use(express.urlencoded({extended: false}));
@@ -24,4 +24,6 @@ app.use('/admin', adminRoutes.router);
 
 app.use(exceptionController.handle404);
 
-app.listen(3001);
+mongoConnect(() => {
+    app.listen(3001)
+});

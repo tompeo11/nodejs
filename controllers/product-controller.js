@@ -77,7 +77,7 @@ exports.updateProduct = (req, res, next) => {
 exports.deleteProduct = (req, res, next) => {
     const {id} = req.params
     const product = Product.findById(parseInt(id))
-    console.log(product)
     Product.delete(product);
+    console.log(product)
     res.redirect('/admin/list-product')
 }
