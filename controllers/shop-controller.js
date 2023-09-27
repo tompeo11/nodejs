@@ -1,17 +1,17 @@
 const Product = require("../models/product");
+const Product1 = require('../models/mongoProduct');
 
-exports.getProductList = (req, res, next) => {
-    const products = Product.getAll();
+exports.getProductList = async (req, res, next) => {
+    const products = await Product1.getAll()
     res.render('shop', {
-        pageTitle: 'Shop',
-        path: '/',
-        products : products
+        pageTitle: 'Shop', path: '/', products: products
     });
+
 }
 
 exports.shoppingCart = (req, res, next) => {
-    res.render('shop/cart',
-        {pageTitle: 'Cart'
+    res.render('shop/cart', {
+        pageTitle: 'Cart'
     });
 }
 

@@ -1,7 +1,8 @@
 const Product = require('../models/product');
+const Product1 = require('../models/mongoProduct');
 
 exports.showAddProductForm = (req, res, next) => {
-    res.render('./admin/add-product',{
+    res.render('./admin/add-product', {
         pageTitle: 'Add product',
         path: '/admin/add-product'
     });
@@ -10,7 +11,7 @@ exports.showAddProductForm = (req, res, next) => {
 exports.insertNewProduct = (req, res, next) => {
     const imageFile = req.file;
     let imgName;
-    if (!imageFile){
+    if (!imageFile) {
         imgName = 'noImg.jpg';
     } else {
         imgName = imageFile.filename;
@@ -19,14 +20,17 @@ exports.insertNewProduct = (req, res, next) => {
     const price = req.body.price;
     const description = req.body.description;
 
-    const product = new Product(title, price, description, imgName);
-    Product.add(product);
-    res.redirect('/');
+    const product = new Product1(title, price, description, imgName);
+    product.save()
+        .then(() => {
+            res.redirect('/admin/list-product');
+        })
+        .catch(err => console.log(err));
 }
 
 exports.getProductList = (req, res, next) => {
     res.render('admin/list-product', {
-        path : 'admin/list-product'
+        path: 'admin/list-product'
     })
 }
 
@@ -34,8 +38,8 @@ exports.getProductList = (req, res, next) => {
 exports.listProduct = (req, res, next) => {
     const products = Product.getAll();
     res.render('admin/list-product', {
-        products : products,
-        path : 'admin/list-product'
+        products: products,
+        path: 'admin/list-product'
     });
 }
 
@@ -44,7 +48,7 @@ exports.editProduct = (req, res, next) => {
         const id = parseInt(req.params.id)
         const product = Product.findById(id)
         const title = 'Admin - Edit Products'
-        if (product) res.render('admin/edit-product', { product, title, path : 'admin/edit-product' })
+        if (product) res.render('admin/edit-product', {product, title, path: 'admin/edit-product'})
         else res.redirect('/admin/list-product')
     } catch (err) {
         console.error(`[Get] - /admin/product/:id/edit ==> `, err)
@@ -54,7 +58,7 @@ exports.editProduct = (req, res, next) => {
 exports.updateProduct = (req, res, next) => {
     const imageFile = req.file;
     let imgName;
-    if (!imageFile){
+    if (!imageFile) {
         imgName = req.body.imageUrl;
     } else {
         imgName = imageFile.filename;

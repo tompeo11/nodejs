@@ -3,7 +3,8 @@ const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const expressLayouts = require('express-ejs-layouts');
 const exceptionController = require('./controllers/exception-controller');
-const mongoConnect = require('./util/mongodb').mongoConnect
+const {client} = require("./util/mongodb");
+const {mongoConnect} = require('./util/mongodb')
 
 
 const app = express();
@@ -26,4 +27,5 @@ app.use(exceptionController.handle404);
 
 mongoConnect(() => {
     app.listen(3001)
-});
+    console.log('Web dang chay o http://localhost:3001')
+})
