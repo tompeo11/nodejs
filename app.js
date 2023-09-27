@@ -20,6 +20,11 @@ app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/'
 app.use('/images', express.static(__dirname + '/images/'));
 app.use('/asset', express.static(__dirname + '/asset/'));
 
+
+app.use((req, res, next) => {
+    //load user info
+    
+})
 app.use(shopRoutes);
 app.use('/admin', adminRoutes.router);
 
